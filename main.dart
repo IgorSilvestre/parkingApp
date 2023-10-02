@@ -1,5 +1,7 @@
 import 'dart:io';
 
+const TAMANHO_PATIO = 3;
+
 class Veiculo {
   String placa;
   String modelo;
@@ -39,12 +41,13 @@ void main() {
 
 String formatarPlaca(String placa) {
   var placaFormatada = placa.replaceAll('-', '').toUpperCase();
-  placaFormatada = placaFormatada.substring(0, 3) + '-' + placaFormatada.substring(3);
+  placaFormatada =
+      placaFormatada.substring(0, 3) + '-' + placaFormatada.substring(3);
   return placaFormatada;
 }
 
 void registrarEntrada(List<Veiculo> estacionamento) {
-  if (estacionamento.length < 3) {
+  if (estacionamento.length < TAMANHO_PATIO) {
     print("Digite a placa do veículo:");
     var placa = stdin.readLineSync()!;
     var placaFormatada = formatarPlaca(placa);
@@ -53,9 +56,9 @@ void registrarEntrada(List<Veiculo> estacionamento) {
       print("Formato de placa inválido. Use o formato AAA-9999.");
       return;
     }
-    
+
     // Verificando se a placa já está registrada
-    if(estacionamento.any((veiculo) => veiculo.placa == placaFormatada)) {
+    if (estacionamento.any((veiculo) => veiculo.placa == placaFormatada)) {
       print("Um veículo com essa placa já está estacionado.");
       return;
     }
@@ -73,7 +76,7 @@ void registrarEntrada(List<Veiculo> estacionamento) {
 void registrarSaida(List<Veiculo> estacionamento) {
   print("Digite a placa do veículo que está saindo:");
   var placaSaida = stdin.readLineSync()!;
-  placaSaida = formatarPlaca(placaSaida);  // Adicionada a formatação da placa
+  placaSaida = formatarPlaca(placaSaida); // Adicionada a formatação da placa
 
   Veiculo? veiculo;
   for (var v in estacionamento) {
@@ -96,4 +99,3 @@ void registrarSaida(List<Veiculo> estacionamento) {
     print("Veículo não encontrado no estacionamento.");
   }
 }
-
